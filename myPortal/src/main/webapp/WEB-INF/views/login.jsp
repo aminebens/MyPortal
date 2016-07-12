@@ -31,7 +31,7 @@
                                 <form:form method="POST" modelAttribute="user" class="form-horizontal panel-body">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <form:input path="login" id="login" placeholder="Identifient" class="form-control"/>
+                                            <form:input path="login" id="login" placeholder="Identifiant" class="form-control"/>
                                             <form:errors path="login"/>
                                         </div>
                                     </div>
