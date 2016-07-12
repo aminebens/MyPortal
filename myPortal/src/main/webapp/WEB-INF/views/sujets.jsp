@@ -59,7 +59,7 @@
                             </c:otherwise> 
                         </c:choose>
                         <br/>
-                        <c:if test="${user}">
+                        <c:if test="${user}" >
                             <a href="<c:url value='/sujet/add' />" class="btn btn-primary btn-fab">
                                 <i class="material-icons">person_add</i><div class="ripple-container"></div>
                             </a>
