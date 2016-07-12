@@ -1,6 +1,7 @@
 package ca.isimtl.myPortal.configuration;
 
 import ca.isimtl.myPortal.converter.RoleToUserConverter;
+import ca.isimtl.myPortal.converter.UserToSujetConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +22,11 @@ import org.springframework.web.servlet.view.JstlView;
 public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
+    UserToSujetConverter userToSujetConverter;
+    
+    @Autowired
     RoleToUserConverter roleToUserConverter;
-
+    
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -44,6 +48,7 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(userToSujetConverter);
         registry.addConverter(roleToUserConverter);
     }
     
