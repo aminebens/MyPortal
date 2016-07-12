@@ -17,14 +17,16 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <div class="container">
+    <%@include file="header.jsp" %>  
+    <div class="container-fluid"> 
         <div class="row">
-            <div class="col-md-12">
-                <h1>MyPortal</h1>
-                <div class="well">
-                    <div class="page-header">
+            <%@include file="sidemenu.jsp" %> 
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h2>List of Users</h2>
                     </div>
+                    <div class="panel-body">
                     <c:choose>
                         <c:when test="${empty users}">
                             No data available
@@ -58,21 +60,22 @@
                         </c:otherwise> 
                     </c:choose>
                     <br/>
-                    <a href="<c:url value='/new' />" class="btn btn-primary btn-fab">
-                        <i class="material-icons">person_add</i><div class="ripple-container"></div>
+                    <a href="<c:url value='/new' />" class="btn btn-raised btn-primary">
+                        Create a new user
+                        <div class="ripple-container"></div>
                     </a>
+                </div>
                 </div>
             </div>
         </div>
     </div>
+                        
 <!-- jQuery -->
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <!-- Twitter Bootstrap -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="<c:url value='/static/js/material.js'/>"></script>
 <script src="<c:url value='/static/js/ripples.js'/>"></script>
-<script>
-  $.material.init();
-</script>
+<script src="<c:url value='/static/js/app.js'/>"></script>
 </body>
 </html>
