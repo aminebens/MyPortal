@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `portailetudiant` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `portailetudiant`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: portailetudiant
 -- ------------------------------------------------------
--- Server version	5.7.11-log
+-- Server version	5.7.13-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,12 +26,12 @@ CREATE TABLE `alert` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(45) NOT NULL,
   `contenu` varchar(200) NOT NULL,
-  `id_groupe` int(11) NOT NULL,
-  `id_user_to` int(11) NOT NULL,
-  `id_user_from` int(11) NOT NULL,
+  `idGroupe` int(11) DEFAULT NULL,
+  `idUserTo` int(11) DEFAULT NULL,
+  `idUserFrom` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +40,7 @@ CREATE TABLE `alert` (
 
 LOCK TABLES `alert` WRITE;
 /*!40000 ALTER TABLE `alert` DISABLE KEYS */;
+INSERT INTO `alert` VALUES (1,'yanis','medjkoune',1,3,3,'2016-07-11 10:00:14'),(2,'payement ','echeance',1,3,3,'2016-07-11 10:00:51'),(3,'payer','maintenant ',1,3,3,'2016-07-11 10:18:26'),(4,'cours annuler','demain ',NULL,3,3,'2016-07-11 11:09:00');
 /*!40000 ALTER TABLE `alert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +291,7 @@ CREATE TABLE `groupe` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,6 +300,7 @@ CREATE TABLE `groupe` (
 
 LOCK TABLES `groupe` WRITE;
 /*!40000 ALTER TABLE `groupe` DISABLE KEYS */;
+INSERT INTO `groupe` VALUES (1,'yanis '),(2,'info'),(3,'reseau');
 /*!40000 ALTER TABLE `groupe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +391,7 @@ CREATE TABLE `personne` (
 
 LOCK TABLES `personne` WRITE;
 /*!40000 ALTER TABLE `personne` DISABLE KEYS */;
-INSERT INTO `personne` VALUES (3,'steve','abc123','Mamadou','Cecile','1982-08-23 00:00:00','5140440555','test@mail.com','25 rue cremazie','555999333',NULL,2,NULL,0);
+INSERT INTO `personne` VALUES (3,'steve','abc123','Mamadou','Cecile','1982-08-23 00:00:00','5140440555','test@mail.com','25 rue cremazie','555999333',NULL,1,NULL,0);
 /*!40000 ALTER TABLE `personne` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,10 +459,13 @@ CREATE TABLE `sujet` (
   `titre` varchar(45) NOT NULL,
   `description` varchar(200) NOT NULL,
   `type` varchar(45) NOT NULL,
-  `isResolu` tinyint(1) DEFAULT NULL,
+  `isResolu` tinyint(1) DEFAULT '0',
   `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idPersonne` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_idx` (`idPersonne`),
+  CONSTRAINT `user` FOREIGN KEY (`idPersonne`) REFERENCES `personne` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,6 +474,7 @@ CREATE TABLE `sujet` (
 
 LOCK TABLES `sujet` WRITE;
 /*!40000 ALTER TABLE `sujet` DISABLE KEYS */;
+INSERT INTO `sujet` VALUES (1,'y','y','y',1,'2016-07-12 11:49:40',3),(2,'yanis','yanis','yanis',1,'2016-07-12 11:50:48',3),(3,'ya','ya','ya',1,'2016-07-12 11:51:14',3),(4,'machine','info','probleme',0,'2016-07-12 13:45:58',3);
 /*!40000 ALTER TABLE `sujet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -508,4 +512,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-10 21:06:02
+-- Dump completed on 2016-07-12 13:51:24
