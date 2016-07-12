@@ -7,6 +7,7 @@ package ca.isimtl.myPortal.controller;
 
 import ca.isimtl.myPortal.model.Sujet;
 import ca.isimtl.myPortal.service.SujetService;
+import ca.isimtl.myPortal.service.UserService;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
@@ -23,6 +24,9 @@ public class SujetControlleur {
 
     @Autowired
     SujetService sujetService;
+    
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = {"/sujet/add"}, method = RequestMethod.GET)
     public String ajouterSujet(ModelMap model) {
@@ -68,7 +72,7 @@ public class SujetControlleur {
             user=false;
             sujets=sujetService.getAllSujetNonResolut();
         }else{
-            sujets=sujetService.getSujetNonResolutByIdUser(3);
+            sujets=sujetService.getSujetNonResolutByIdUser(userService.findById(3));
         }
         
         model.addAttribute("sujets", sujets);
@@ -78,14 +82,14 @@ public class SujetControlleur {
     
     @RequestMapping(value = {"/sujets"}, method = RequestMethod.GET)
     public String allSujet( ModelMap model) {
-        int role=1;
+        int role=2;
         boolean user=true;
         List<Sujet> sujets;
         if(role==1){
             user=false;
             sujets=sujetService.getAllSujetNonResolut();
         }else{
-            sujets=sujetService.getSujetNonResolutByIdUser(3);
+            sujets=sujetService.getSujetNonResolutByIdUser(userService.findById(3));
         }
         
         model.addAttribute("sujets", sujets);

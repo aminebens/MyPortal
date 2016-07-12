@@ -6,6 +6,7 @@
 package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.Sujet;
+import ca.isimtl.myPortal.model.User;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -28,16 +29,16 @@ public class SujetDaoImpl extends AbstractDao<Integer, Sujet> implements SujetDa
         return (List<Sujet>) crit.list();
     }
 
-    public List<Sujet> getSujetByIdUser(int id) {
+    public List<Sujet> getSujetByIdUser(User personne) {
         Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("idUser", id));
+        crit.add(Restrictions.eq("user", personne));
         crit.addOrder(Order.asc("date_creation"));
         return (List<Sujet>) crit.list();
     }
 
-    public List<Sujet> getSujetNonResolutByIdUser(int id) {
+    public List<Sujet> getSujetNonResolutByIdUser(User personne) {
         Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.and(Restrictions.eq("idUser", id),Restrictions.eq("isResolu", false)));
+        crit.add(Restrictions.and(Restrictions.eq("user", personne),Restrictions.eq("isResolu", false)));
         crit.addOrder(Order.asc("date_creation"));
         return (List<Sujet>) crit.list();
     }

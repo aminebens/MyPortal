@@ -7,6 +7,7 @@ package ca.isimtl.myPortal.service;
 
 import ca.isimtl.myPortal.dao.SujetDao;
 import ca.isimtl.myPortal.model.Sujet;
+import ca.isimtl.myPortal.model.User;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,12 @@ public class SujetServiceImpl implements SujetService{
         return sujetDao.getAllSujetNonResolut();
     }
 
-    public List<Sujet> getSujetByIdUser(int id) {
-        return sujetDao.getSujetByIdUser(id);
+    public List<Sujet> getSujetByIdUser(User personne) {
+        return sujetDao.getSujetByIdUser(personne);
     }
 
-    public List<Sujet> getSujetNonResolutByIdUser(int id) {
-        return sujetDao.getSujetNonResolutByIdUser(id);
+    public List<Sujet> getSujetNonResolutByIdUser(User personne) {
+        return sujetDao.getSujetNonResolutByIdUser(personne);
     }
 
     public Sujet getSujetById(int id) {

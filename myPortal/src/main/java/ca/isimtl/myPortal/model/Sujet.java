@@ -36,7 +36,7 @@ public class Sujet implements Serializable{
     private String description;
     
     @OneToOne
-    @JoinColumn(name="idUser")
+    @JoinColumn(name="idPersonne")
     private User user;
     
     @NotEmpty
