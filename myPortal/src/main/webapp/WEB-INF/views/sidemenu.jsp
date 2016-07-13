@@ -6,7 +6,7 @@
 <nav class="col-md-2 sidemenu">
     <ul>
         <c:forEach var="item" items="${sidemenu}">
-            <li class="withripple ${requestScope['javax.servlet.forward.servlet_path'] == item.value ? 'active' : 'none'}">
+            <li class="withripple ${requestScope['javax.servlet.forward.servlet_path'].contains(item.value) ? 'active' : 'none'}">
                 <a href="<c:url value='${item.value}'/>">${item.key}</a>
                 <div class="ripple-container"></div>
             </li>

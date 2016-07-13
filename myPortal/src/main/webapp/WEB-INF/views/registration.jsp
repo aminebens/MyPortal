@@ -92,12 +92,12 @@
                 <c:choose>
                     <c:when test="${edit}">
                         <input type="submit" value="Update" class="btn btn-primary"/>
-                        <a href="<c:url value='/users/list' />" class="btn btn-default">Cancel</a>
+                        <a href="<c:url value='/users' />" class="btn btn-default">Cancel</a>
                         <div class="ripple-container"></div>
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Register" class="btn btn-primary"/>
-                        <a href="<c:url value='/users/list' />" class="btn btn-default">Cancel</a>
+                        <a href="<c:url value='/users' />" class="btn btn-default">Cancel</a>
                         <div class="ripple-container"></div>
                     </c:otherwise>
                 </c:choose>
