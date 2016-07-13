@@ -1,14 +1,16 @@
-<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
 <nav class="col-md-2 sidemenu">
-    <div class="panel panel-default">
-        <ul>
-            <li class="withripple">Users<div class="ripple-container"></div></li>
-            <li class="withripple">Matiere<div class="ripple-container"></div></li>
-            <li class="withripple">Cours<div class="ripple-container"></div></li>
-            <li class="withriplle">Contacts<div class="ripple-container"></div></li>
-        </ul>
-    </div>
+    <ul>
+        <c:forEach var="item" items="${sidemenu}">
+            <li class="withripple ${requestScope['javax.servlet.forward.servlet_path'].contains(item.value) ? 'active' : 'none'}">
+                <a href="<c:url value='${item.value}'/>">${item.key}</a>
+                <div class="ripple-container"></div>
+            </li>
+        </c:forEach>
+    </ul>
 </nav>
 
