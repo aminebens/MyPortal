@@ -21,5 +21,7 @@ public interface UserDao {
     void saveUser(User user);
      
     List<User> getAllUsers();
+    
+    List<User> getContacts();
 
 }
