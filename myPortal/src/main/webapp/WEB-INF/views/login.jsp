@@ -42,7 +42,7 @@
                                     </div>
                                     <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
                                     <div class="col-sm-offset-3 col-sm-6">
-                                        <button class="btn btn-lg btn-primary btn-block">
+                                        <button class="btn btn-lg btn-block btn-raised btn-primary btn-block">
                                             Se Connecter
                                             <div class="ripple-wrapper"></div>
                                         </button>

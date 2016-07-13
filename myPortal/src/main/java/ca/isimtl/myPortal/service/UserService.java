@@ -14,4 +14,7 @@ public interface UserService {
     void updateUser(User user);
  
     List<User> getAllUsers();
+    
+    User getLogedInUser();
+    
 }

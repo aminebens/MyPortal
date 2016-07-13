@@ -48,7 +48,7 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(userToSujetConverter);
+        //registry.addConverter(userToSujetConverter);
         registry.addConverter(roleToUserConverter);
     }
     

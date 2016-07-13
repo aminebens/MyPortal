@@ -39,11 +39,6 @@ public class AbstractDao<PK extends Serializable, T> {
         return (T) getSession().get(persistentClass, key);
     }
 
-    @SuppressWarnings("unchecked")
-    public T getUserConnexion(T user) {
-        return (T) getSession().get(persistentClass, (Serializable) user);
-    }
-
     public void persist(T entity) {
         getSession().persist(entity);
     }

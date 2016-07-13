@@ -42,6 +42,7 @@ public class UsersController {
     public String listUsers(ModelMap model) {
         List<User> users = service.getAllUsers();
         model.addAttribute("users", users);
+        model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "users";
     }
 
@@ -53,6 +54,7 @@ public class UsersController {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
+        model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "registration";
     }
 
@@ -69,7 +71,7 @@ public class UsersController {
         }
 
         service.saveUser(user);
-
+        model.addAttribute("loggedinuser", getLogedInUserFullName());
         model.addAttribute("success", "User " + user.getPrenom() + " " + user.getNom() + " added successfully");
         return "success";
     }
@@ -82,6 +84,7 @@ public class UsersController {
         User user = service.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
+        model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "registration";
     }
     
@@ -100,6 +103,7 @@ public class UsersController {
         service.updateUser(user);
  
         model.addAttribute("success", "User " + user.getPrenom() + " " + user.getNom() + " updated successfully");
+        model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "success";
     }
     
@@ -126,4 +130,13 @@ public class UsersController {
         }
         return "redirect:/login";
     }
+    
+    public String getLogedInUserFullName() {
+        String result = "";
+        User user = service.getLogedInUser();
+        if(user != null)
+            result = user.getPrenom() + " " + user.getNom();
+        return result;
+    }
+    
 }
