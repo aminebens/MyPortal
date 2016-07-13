@@ -47,4 +47,5 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         criteria.add(Restrictions.not(Restrictions.eq("userRole", 2)));
         return (List<User>) criteria.list();
     }
+
 }
