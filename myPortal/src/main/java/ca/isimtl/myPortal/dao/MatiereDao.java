@@ -14,5 +14,12 @@ import java.util.List;
  */
 public interface MatiereDao {
     
-     List<Matiere> getAll();
+    Matiere findById(int id);
+    
+    void saveMatiere(Matiere uneMatiere);
+    
+    void deleteMatiere(Matiere uneMatiere);
+    
+    List<Matiere> getAll();    
+     
 }

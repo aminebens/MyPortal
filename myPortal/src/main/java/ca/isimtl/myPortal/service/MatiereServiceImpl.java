@@ -27,4 +27,31 @@ public class MatiereServiceImpl implements MatiereService {
         return matieredao.getAll();
     }
 
+    public Matiere findById(int id) {
+        return matieredao.findById(id);
+    }
+
+    public void saveMatiere(Matiere uneMatiere) {
+        matieredao.saveMatiere(uneMatiere);
+    }
+
+    public void updateMatiere(Matiere uneMatiere) {
+        Matiere entity = matieredao.findById(uneMatiere.getId());
+        if(entity != null){
+             entity.setNoCours(uneMatiere.getNoCours());
+             entity.setDescription(uneMatiere.getDescription());
+             entity.setTitre(uneMatiere.getTitre());
+             entity.setDuree(uneMatiere.getDuree());
+             entity.setPrix(uneMatiere.getPrix());
+        }
+    }
+
+    public void deleteMatiere(Matiere uneMatiere) {
+        matieredao.deleteMatiere(uneMatiere);
+    }
+
+    public List<Matiere> getAll() {
+        return matieredao.getAll();
+    }
+
 }

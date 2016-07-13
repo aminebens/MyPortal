@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Liste des matieres</title>
+        <title>add matieres</title>
         <!-- Mobile support -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet" />
@@ -23,7 +23,10 @@
                     <h1>MyPortal</h1>
                     <div class="well">
                         <div class="page-header">
-                            <h1>Liste des Matieres</h1>
+                            <c:choose>
+                                <c:when test="${edit==true}"><h1>Modifier une matiere</h1></c:when>
+                                c:when test="${edit==false}"><h1>Ajouter une matiere</h1></c:when>
+                            </c:choose>                            
                         </div>
                         <div class="panel-body">
                             <c:choose>
@@ -71,5 +74,6 @@
         <script src="<c:url value='/static/js/ripples.js'/>"></script>
     </body>
 </html>
+
 
 

@@ -14,5 +14,13 @@ import java.util.List;
  */
 public interface MatiereService {
     
-    List<Matiere> getAllMatieres();
+    Matiere findById(int id);
+    
+    void saveMatiere(Matiere uneMatiere);
+    
+    void updateMatiere(Matiere uneMatiere);
+    
+    void deleteMatiere(Matiere uneMatiere);
+    
+    List<Matiere> getAll(); 
 }
