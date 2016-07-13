@@ -2,6 +2,8 @@ package ca.isimtl.myPortal.configuration;
 
 import ca.isimtl.myPortal.converter.RoleToUserConverter;
 import ca.isimtl.myPortal.converter.UserToSujetConverter;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -61,6 +63,17 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
         return messageSource;
+    }
+    
+    @Bean
+    public Map<String, String> sideMenu() {
+        final Map<String, String> list = new HashMap<String, String>();
+        list.put("Utilisateurs","/users");
+        list.put("Matieres","/matieres");
+        list.put("Sujets","/sujets");
+        list.put("Groupes","/group");
+        list.put("Alerts","/alerts");
+        return list;
     }
 
 }
