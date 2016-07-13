@@ -7,15 +7,19 @@ package ca.isimtl.myPortal.model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author Francois YOUALEU
  */
+@Entity
+@Table(name = "matiere")
 public class Matiere implements Serializable{
    
     @Id
@@ -36,20 +40,18 @@ public class Matiere implements Serializable{
     
     @NotEmpty
     @Column(name = "duree", nullable = false)
-    private String duree;
+    private int duree;
     
     @NotEmpty
     @Column(name = "prix", nullable = false)
-    private String prix;
+    private Double prix;
 
     public Matiere() {
     }
 
-    public Matiere(int id, String noCours, String titre, String description, String duree, String prix) {
+    public Matiere(int id, String noCours, int duree, Double prix) {
         this.id = id;
         this.noCours = noCours;
-        this.titre = titre;
-        this.description = description;
         this.duree = duree;
         this.prix = prix;
     }
@@ -86,19 +88,19 @@ public class Matiere implements Serializable{
         this.description = description;
     }
 
-    public String getDuree() {
+    public int getDuree() {
         return duree;
     }
 
-    public void setDuree(String duree) {
+    public void setDuree(int duree) {
         this.duree = duree;
     }
 
-    public String getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
-    public void setPrix(String prix) {
+    public void setPrix(Double prix) {
         this.prix = prix;
     }
     
