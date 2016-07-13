@@ -14,12 +14,13 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserDao userDao;
     
-    public User getUserConnexion(User user) {
-        return userDao.getUserConnexion(user);
-    }
-
     public User findById(int id) {
         return userDao.findById(id);
+    }
+    
+    public User findByLogin(String login) {
+        User user = userDao.findByLogin(login);
+        return user;
     }
 
     public void saveUser(User user) {

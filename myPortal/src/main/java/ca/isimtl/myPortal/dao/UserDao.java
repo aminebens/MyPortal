@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface UserDao {
     
-    User getUserConnexion(User user);
-    
     User findById(int id);
+    
+    User findByLogin(String login);
  
     void saveUser(User user);
      

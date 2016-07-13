@@ -8,6 +8,8 @@ package ca.isimtl.myPortal.dao;
 import ca.isimtl.myPortal.model.User;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,12 +19,18 @@ import org.springframework.stereotype.Repository;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
-    public User findUserConnexion(User user) {
-        return getUserConnexion(user);
-    }
-
     public User findById(int id) {
         return getByKey(id);
+    }
+    
+    public User findByLogin(String login) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("login", login));
+        User user = (User)crit.uniqueResult();
+        if(user!=null){
+            Hibernate.initialize(user.getUserRole());
+        }
+        return user;
     }
 
     public void saveUser(User user) {

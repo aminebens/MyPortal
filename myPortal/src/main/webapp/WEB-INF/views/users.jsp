@@ -52,7 +52,7 @@
                                     <td>${user.numeroAssuranceSociale}</td>
                                     <td>${user.userRole.type}</td>
                                     <td>${user.active ? "Active" : "Deactivated"}</td>
-                                    <td><a href="<c:url value='/edit-${user.id}-user' />">Edit</a></td>
+                                    <td><a href="<c:url value='/users/edit-${user.id}-user' />">Edit</a></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -60,7 +60,7 @@
                         </c:otherwise> 
                     </c:choose>
                     <br/>
-                    <a href="<c:url value='/new' />" class="btn btn-raised btn-primary">
+                    <a href="<c:url value='/users/new' />" class="btn btn-raised btn-primary">
                         Create a new user
                         <div class="ripple-container"></div>
                     </a>

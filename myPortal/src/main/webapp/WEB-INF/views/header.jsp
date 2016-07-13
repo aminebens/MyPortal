@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <div class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -17,7 +18,7 @@
                         John Smith
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)">
+                        <li><a href="<c:url value="/logout" />">
                                 <i class="material-icons">power_settings_new</i> Logout
                                 <div class="ripple-wrapper"></div>
                             </a>     
@@ -28,4 +29,3 @@
         </div>
     </div>
 </div>
-
