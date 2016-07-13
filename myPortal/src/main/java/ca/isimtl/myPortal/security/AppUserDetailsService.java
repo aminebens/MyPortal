@@ -35,9 +35,9 @@ public class AppUserDetailsService implements UserDetailsService {
         
         if (user == null)
             throw new UsernameNotFoundException("Username not found");
-            
+
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPwd(),
-                true, true, true, true, getGrantedAuthorities(user));
+                user.getActive(), true, true, true, getGrantedAuthorities(user));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
