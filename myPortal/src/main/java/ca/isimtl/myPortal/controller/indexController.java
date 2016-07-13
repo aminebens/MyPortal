@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/welcome")
-public class indexController {
+public class IndexController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String sayHello(ModelMap model) {
-        return "login";
+    public String welcome(ModelMap model) {
+        return "welcome";
     }
 
 }
