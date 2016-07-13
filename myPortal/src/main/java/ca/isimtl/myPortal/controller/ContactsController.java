@@ -19,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Nicolas
  */
 @Controller
-@RequestMapping("/contacts")
 public class ContactsController {
     
     @Autowired
     UserService service;
     
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/contacts"}, method = RequestMethod.GET)
     public String listContacts(ModelMap model) {
         List<User> contacts = service.getContacts();
         model.addAttribute("contacts", contacts);
