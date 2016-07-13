@@ -6,20 +6,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ca.isimtl.myPortal.dao.UserDao;
 import java.util.List;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     
     @Autowired
     private UserDao userDao;
     
-    public User getUserConnexion(User user) {
-        return userDao.getUserConnexion(user);
-    }
-
     public User findById(int id) {
         return userDao.findById(id);
+    }
+    
+    public User findByLogin(String login) {
+        User user = userDao.findByLogin(login);
+        return user;
     }
 
     public void saveUser(User user) {
@@ -46,4 +49,16 @@ public class UserServiceImpl implements UserService{
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
+    
+    public User getLogedInUser() {
+        User user = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+ 
+        if (principal instanceof UserDetails) {
+            user = findByLogin(((UserDetails)principal).getUsername());
+        }
+        
+        return user;
+    }
+    
 }

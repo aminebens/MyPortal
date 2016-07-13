@@ -5,13 +5,16 @@ import java.util.List;
 
 public interface UserService {
     
-    User getUserConnexion(User user);
-    
     User findById(int id);
+    
+    User findByLogin(String login);
      
     void saveUser(User user);
      
     void updateUser(User user);
  
     List<User> getAllUsers();
+    
+    User getLogedInUser();
+    
 }

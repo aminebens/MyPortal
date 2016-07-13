@@ -103,7 +103,7 @@
                                 <div class="togglebutton">
                                     <label>
                                         <form:checkbox path="active" id="active" />
-                                        <span id="activeSpan">sdfs</span>
+                                        <span id="activeSpan"></span>
                                     </label>
                                 </div>
                             </div>
@@ -111,13 +111,13 @@
                         <div class="col-md-9 col-md-offset-6">
                             <c:choose>
                                 <c:when test="${edit}">
-                                    <input type="submit" value="Update" class="btn btn-primary"/> or
-                                    <a href="<c:url value='/list' />" class="btn btn-default">Cancel</a>
+                                    <input type="submit" value="Update" class="btn btn-primary"/>
+                                    <a href="<c:url value='/users/list' />" class="btn btn-default">Cancel</a>
                                     <div class="ripple-container"></div>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="submit" value="Register" class="btn btn-primary"/> or
-                                    <a href="<c:url value='/list' />" class="btn btn-default">Cancel</a>
+                                    <input type="submit" value="Register" class="btn btn-primary"/>
+                                    <a href="<c:url value='/users/list' />" class="btn btn-default">Cancel</a>
                                     <div class="ripple-container"></div>
                                 </c:otherwise>
                             </c:choose>

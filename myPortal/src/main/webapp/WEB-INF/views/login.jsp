@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,29 +28,28 @@
                                 <div class="panel-heading">
                                     <h1>Login</h1>
                                 </div>
-                                <form:form method="POST" modelAttribute="user" class="form-horizontal panel-body">
+                                <c:url var="loginUrl" value="/login" />
+                                <form method="POST" action="${loginUrl}" class="form-horizontal panel-body">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <form:input path="login" id="login" placeholder="Identifiant" class="form-control"/>
-                                            <form:errors path="login"/>
+                                            <input type="text" id="login" name="login" placeholder="Identifient" class="form-control" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <form:input path="pwd" id="password" placeholder="Password" class="form-control"/>
-                                            <form:errors path="pwd"/>
+                                            <input type="password" id="password" name="password" placeholder="Password" class="form-control" required/>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
                                     <div class="col-sm-offset-3 col-sm-6">
-                                        <button class="btn btn-lg btn-primary btn-block">
+                                        <button class="btn btn-lg btn-block btn-raised btn-primary btn-block">
                                             Se Connecter
                                             <div class="ripple-wrapper"></div>
                                         </button>
                                     </div>
-                                </form:form>
+                                </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
