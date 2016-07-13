@@ -42,4 +42,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         return (List<User>) criteria.list();
     }
 
+      public List<User> getContacts() {
+        Criteria criteria = createEntityCriteria();      
+        criteria.add(Restrictions.not(Restrictions.eq("userRole", 2)));
+        return (List<User>) criteria.list();
+    }
 }
