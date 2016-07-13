@@ -6,10 +6,12 @@
 package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.User;
+import ca.isimtl.myPortal.service.UserRoleService;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,6 +21,9 @@ import org.springframework.stereotype.Repository;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
+    @Autowired
+    UserRoleService userRoleService;
+    
     public User findById(int id) {
         return getByKey(id);
     }
@@ -44,7 +49,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
       public List<User> getContacts() {
         Criteria criteria = createEntityCriteria();      
-        criteria.add(Restrictions.not(Restrictions.eq("userRole", 2)));
+        criteria.add(Restrictions.not(Restrictions.eq("userRole", userRoleService.findById(2))));
         return (List<User>) criteria.list();
     }
 }
