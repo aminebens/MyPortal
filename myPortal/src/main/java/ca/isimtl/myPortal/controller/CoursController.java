@@ -80,7 +80,7 @@ public class CoursController {
 
     }
     
-    //ajouter une cours
+    //ajouter un cours
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newCours(ModelMap model) {
         CoursEntity coursE = new CoursEntity();
@@ -138,7 +138,7 @@ public class CoursController {
         return "coursAdd";
     }
     
-    //modifier une cours
+    //modifier un cours
     @RequestMapping(value = {"/edit-{id}-cours"}, method = RequestMethod.GET)
     public String editCours(@PathVariable int id, ModelMap model){
         
@@ -160,7 +160,7 @@ public class CoursController {
         return "coursAdd";
     }
     
-    //supprimer une cours
+    //supprimer un cours
     @RequestMapping(value ={"/delete-{id}-cours"}, method = RequestMethod.GET)
     public String deleteCours(@PathVariable int id, ModelMap model){
         Cours unCours = coursService.findById(id);
