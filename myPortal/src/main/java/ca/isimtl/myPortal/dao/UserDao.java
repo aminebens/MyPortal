@@ -23,5 +23,7 @@ public interface UserDao {
     List<User> getAllUsers();
     
     List<User> getContacts();
+    
+    List<User> getAdmin();
 
 }

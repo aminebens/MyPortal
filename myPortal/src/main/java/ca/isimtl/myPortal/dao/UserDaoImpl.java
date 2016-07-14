@@ -47,9 +47,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
         return (List<User>) criteria.list();
     }
 
-      public List<User> getContacts() {
+    public List<User> getContacts() {
         Criteria criteria = createEntityCriteria();      
         criteria.add(Restrictions.not(Restrictions.eq("userRole", userRoleService.findById(2))));
         return (List<User>) criteria.list();
     }
+
+    public List<User> getAdmin() {
+        Criteria criteria = createEntityCriteria();      
+        criteria.add(Restrictions.not(Restrictions.eq("userRole", userRoleService.findById(6))));
+        return (List<User>) criteria.list();
+    }    
 }

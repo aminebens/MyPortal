@@ -42,6 +42,12 @@ public class AlertDaoImpl extends AbstractDao<Integer, Alert> implements AlertDa
         Criteria criteria = createEntityCriteria();
         return (List<Alert>) criteria.list();
     }
+
+    public List<Alert> findByIdUserFrom(Integer idUserFrom) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("idUserFrom", idUserFrom));
+        return (List<Alert>) criteria.list();
+    }
     
     
 }

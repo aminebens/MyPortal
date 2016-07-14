@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface AlertDao {
     List<Alert> findByIdUserTO(Integer idUserTo);
+    List<Alert> findByIdUserFrom(Integer idUserFrom);
     List<Alert> findByIdGroup(Integer idGroup);
     Alert findByid(int id);
     void saveAlert(Alert alert);

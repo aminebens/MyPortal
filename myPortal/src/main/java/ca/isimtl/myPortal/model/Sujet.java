@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -37,6 +39,7 @@ public class Sujet implements Serializable{
     @JoinColumn(name="idPersonne")
     private User user;
     
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "sujet")
     private List<Message> messages;
     
