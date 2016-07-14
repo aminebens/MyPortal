@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -18,10 +19,11 @@
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     </head>
     <body>
-        <%@include file="header.jsp" %>
+        <t:wrapper>
+        
         <div class="container-fluid">
             <div class="row">
-                <%@include file="sidemenu.jsp" %>
+                
                 <div class="col-md-8">
                     <div class="well">
                         <div class="page-header">
@@ -94,6 +96,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="<c:url value='/static/js/material.js'/>"></script>
         <script src="<c:url value='/static/js/ripples.js'/>"></script>
+        </t:wrapper>
     </body>
 </html>
 
