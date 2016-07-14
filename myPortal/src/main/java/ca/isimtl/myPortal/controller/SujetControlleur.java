@@ -43,7 +43,7 @@ public class SujetControlleur {
 
     @RequestMapping(value = {"/sujet/add"}, method = RequestMethod.GET)
     public String ajouterSujet(ModelMap model) {
-        if (userService.getLogedInUser().getUserRole().getId() == 6) {
+        if (userService.getLogedInUser().getUserRole().getType().toUpperCase().equals("ADMIN")) {
             return "redirect:/sujets";
         }
         Sujet sujet = new Sujet();
