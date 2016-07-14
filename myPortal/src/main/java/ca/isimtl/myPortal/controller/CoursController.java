@@ -17,11 +17,13 @@ import ca.isimtl.myPortal.service.MatiereService;
 import ca.isimtl.myPortal.service.ProfService;
 import ca.isimtl.myPortal.service.UserService;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,6 +52,9 @@ public class CoursController {
     
     @Autowired
     MatiereService matiereService;
+    
+    @Autowired
+    Map<String, String> sideMenu;
     
     //afficher tous les cours
     @RequestMapping(method = RequestMethod.GET)
@@ -171,4 +176,19 @@ public class CoursController {
         return "cours";
     }
 
+    @ModelAttribute("loggedinuser")
+    public String getLogedInUserFullName() {
+        String result = "";
+        User user = userService.getLogedInUser();
+        if (user != null) {
+            result = user.getPrenom() + " " + user.getNom();
+        }
+        return result;
+    }
+
+    @ModelAttribute("sidemenu")
+    public Map<String, String> getSideMenu() {
+        return sideMenu;
+    }
+    
 }
