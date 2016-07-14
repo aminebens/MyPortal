@@ -17,9 +17,21 @@ import org.springframework.stereotype.Repository;
 @Repository("coursDao")
 public class CoursDaoImpl extends AbstractDao<Integer, Cours> implements CoursDao{
 
-    public List<Cours> getAllCours() {
+    public List<Cours> getAll() {
         Criteria criteria = createEntityCriteria();
         return (List<Cours>) criteria.list();
+    }
+
+    public Cours findById(int id) {
+        return getByKey(id);
+    }
+
+    public void saveCours(Cours unCours) {
+        persist(unCours);
+    }
+
+    public void deleteCours(Cours unCours) {
+        delete(unCours);
     }
     
 }
