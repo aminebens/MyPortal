@@ -12,14 +12,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
-    
+
     @Autowired
     private UserDao userDao;
-    
+
     public User findById(int id) {
         return userDao.findById(id);
     }
-    
+
     public User findByLogin(String login) {
         User user = userDao.findByLogin(login);
         return user;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     public void updateUser(User user) {
         User entity = userDao.findById(user.getId());
-        if(entity != null){
+        if (entity != null) {
             entity.setNom(user.getNom());
             entity.setPrenom(user.getPrenom());
             entity.setLogin(user.getLogin());
@@ -49,16 +49,24 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
-    
+
     public User getLogedInUser() {
         User user = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
- 
+
         if (principal instanceof UserDetails) {
-            user = findByLogin(((UserDetails)principal).getUsername());
+            user = findByLogin(((UserDetails) principal).getUsername());
         }
-        
+
         return user;
     }
-    
+
+    public List<User> getContacts() {
+        return userDao.getContacts();
+    }
+
+    public List<User> getAdmin() {
+        return userDao.getAdmin();
+    }
+
 }

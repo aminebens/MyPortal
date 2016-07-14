@@ -5,6 +5,7 @@ import ca.isimtl.myPortal.model.UserRole;
 import ca.isimtl.myPortal.service.UserRoleService;
 import ca.isimtl.myPortal.service.UserService;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -28,20 +29,24 @@ public class UsersController {
 
     @Autowired
     UserService service;
-    
+
     @Autowired
     UserRoleService userRoleService;
 
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    Map<String, String> sideMenu;
+
     /*
      * This method will list all existing users.
      */
-    @RequestMapping(value = {"/", "users/list"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/users", "users/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         List<User> users = service.getAllUsers();
         model.addAttribute("users", users);
+        model.addAttribute("sidemenu", sideMenu);
         model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "users";
     }
@@ -54,6 +59,7 @@ public class UsersController {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
+        model.addAttribute("sidemenu", sideMenu);
         model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "registration";
     }
@@ -85,58 +91,61 @@ public class UsersController {
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
         model.addAttribute("loggedinuser", getLogedInUserFullName());
+        model.addAttribute("sidemenu", sideMenu);
         return "registration";
     }
-    
+
     /*
      * This method will be called on form submission, handling POST request for
      * updating user in database. It also validates the user input
      */
-    @RequestMapping(value = { "/users/edit-{id}-user" }, method = RequestMethod.POST)
+    @RequestMapping(value = {"/users/edit-{id}-user"}, method = RequestMethod.POST)
     public String updateEmployee(@Valid User user, BindingResult result,
             ModelMap model, @PathVariable int id) {
- 
+
         if (result.hasErrors()) {
             return "registration";
         }
- 
+
         service.updateUser(user);
- 
+
         model.addAttribute("success", "User " + user.getPrenom() + " " + user.getNom() + " updated successfully");
         model.addAttribute("loggedinuser", getLogedInUserFullName());
         return "success";
     }
-    
+
     /**
      * This method will provide UserRole list to views
-     * @return 
+     *
+     * @return
      */
     @ModelAttribute("roles")
     public List<UserRole> initializeProfiles() {
         return userRoleService.findAll();
     }
-    
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
-    
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response){
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){    
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         return "redirect:/login";
     }
-    
+
     public String getLogedInUserFullName() {
         String result = "";
         User user = service.getLogedInUser();
-        if(user != null)
+        if (user != null) {
             result = user.getPrenom() + " " + user.getNom();
+        }
         return result;
     }
-    
+
 }

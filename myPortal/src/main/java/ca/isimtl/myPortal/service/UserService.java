@@ -17,4 +17,8 @@ public interface UserService {
     
     User getLogedInUser();
     
+    List<User> getContacts();
+    
+    List<User> getAdmin();
+    
 }
