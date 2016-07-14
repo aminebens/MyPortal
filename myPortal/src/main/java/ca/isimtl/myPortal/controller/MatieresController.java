@@ -37,50 +37,58 @@ public class MatieresController {
     }
     
     //ajouter une matiere
-    @RequestMapping(value = {"/allMatierss/new"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newMatiere(ModelMap model) {
         Matiere uneMat = new Matiere();
         model.addAttribute("matiere", uneMat);
         model.addAttribute("edit", false);
-        return "addMatiere";
+        return "matiereAdd";
 
     }
     
-    @RequestMapping(value = {"/allMatierss/new"}, method = RequestMethod.POST)
-    public String saveEmployee(@Valid Matiere uneMat, BindingResult result, ModelMap model) {
+    @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
+    public String saveMatiere(@Valid Matiere uneMat, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
-            return "addMatiere";
+            return "matieres";
         }
 
         matiereService.saveMatiere(uneMat);
-        model.addAttribute("la matiere " + uneMat.getTitre() + " a ete bien enregistree");
-        return "matieres";
+        Matiere uneMatiere = new Matiere();
+        model.addAttribute("matiere", uneMatiere);
+        model.addAttribute("edit", false);
+        return "matiereAdd";
     }
     
     //modifier une matiere
-    @RequestMapping(value = {"/allMatierss/new"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/edit-{id}-matiere"}, method = RequestMethod.GET)
     public String editMatiere(@PathVariable int id, ModelMap model){
         
         Matiere uneMat = matiereService.findById(id);
         model.addAttribute("matiere", uneMat);
         model.addAttribute("edit", true);
-        return "addMatiere";
+        return "matiereAdd";
     }
     
-    @RequestMapping(value ={"/allMatierss/new"}, method = RequestMethod.POST)
+    @RequestMapping(value ={"/edit-{id}-matiere"}, method = RequestMethod.POST)
     public String updateMatiere(@Valid Matiere uneMat, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             return "matieres";
         }
         
         matiereService.updateMatiere(uneMat);
-        model.addAttribute("la matiere " + uneMat.getTitre() + " a ete bien modifiee");
-        return "matieres";
+        model.addAttribute("edit", true);
+        model.addAttribute("matiere", uneMat);
+        return "matiereAdd";
     }
     
-    @RequestMapping(value ={"allMatieres"}, method = RequestMethod.GET)
-    public String deleteMatiere(@Valid Matiere uneMat){
+    //supprimer une matiere
+    @RequestMapping(value ={"/delete-{id}-matiere"}, method = RequestMethod.GET)
+    public String deleteMatiere(@PathVariable int id, ModelMap model){
+        Matiere uneMat = matiereService.findById(id);
         matiereService.deleteMatiere(uneMat);
+        
+        List<Matiere> mesMatieres = matiereService.getAll();
+        model.addAttribute("matieres", mesMatieres);
         return "matieres";
     }
 

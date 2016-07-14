@@ -23,8 +23,33 @@ public class CoursServiceImpl implements CoursService{
     @Autowired
     CoursDao coursdao;
     
-    public List<Cours> getAllCours() {
-        return coursdao.getAllCours();
+    public List<Cours> getAll() {
+        return coursdao.getAll();
+    }
+
+    public Cours findById(int id) {
+         return coursdao.findById(id);
+    }
+
+    public void saveCours(Cours unCours) {
+         coursdao.saveCours(unCours);
+    }
+
+    public void updateCours(Cours unCours) {
+        Cours entity = coursdao.findById(unCours.getId());
+        if(entity != null){
+             entity.setLibelle(unCours.getLibelle());
+             entity.setMaSession(unCours.getMaSession());
+             entity.setPlageHoraire(unCours.getPlageHoraire());
+             entity.setDateDebut(unCours.getDateDebut());
+             entity.setDateFin(unCours.getDateFin());
+             entity.setUneMat(unCours.getUneMat());
+             entity.setProf(unCours.getProf());                  
+        }
+    }
+
+    public void deleteCours(Cours unCours) {
+        coursdao.deleteCours(unCours);
     }
     
 }

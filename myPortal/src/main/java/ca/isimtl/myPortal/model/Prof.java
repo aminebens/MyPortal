@@ -1,13 +1,16 @@
 
+
 package ca.isimtl.myPortal.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,6 +35,9 @@ public class Prof implements Serializable {
     @OneToOne
     @JoinColumn(name="id_personne")
     private User user;
+    
+    @OneToMany(mappedBy = "prof", cascade  = CascadeType.ALL)
+    private List<Cours>  mesCours;
 
     public Prof() {
     }
@@ -64,6 +70,14 @@ public class Prof implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Cours> getMesCours() {
+        return mesCours;
+    }
+
+    public void setMesCours(List<Cours> mesCours) {
+        this.mesCours = mesCours;
     }
     
 }

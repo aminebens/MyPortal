@@ -18,7 +18,7 @@ public interface MatiereDao {
     
     void saveMatiere(Matiere uneMatiere);
     
-    void deleteMatiere(Matiere uneMatiere);
+    void deleteMatiere(Matiere uneMat);
     
     List<Matiere> getAll();    
      

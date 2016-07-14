@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.isimtl.myPortal.dao;
+package ca.isimtl.myPortal.service;
 
-import ca.isimtl.myPortal.model.Cours;
+import ca.isimtl.myPortal.model.Prof;
 import java.util.List;
 
 /**
  *
  * @author Francois YOUALEU
  */
-public interface CoursDao {
+public interface ProfService {
     
-    Cours findById(int id);
+    Prof findById(int id);
     
-    void saveCours(Cours unCours);
+    List<Prof> getAll();
     
-    void deleteCours(Cours unCours);
-    
-    List<Cours> getAll(); 
+    Prof findByIdPersonne(int id);
 }

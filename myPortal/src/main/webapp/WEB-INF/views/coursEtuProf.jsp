@@ -33,12 +33,6 @@
                                     No data available
                                 </c:when>
                                 <c:otherwise>
-                                    <sec:authorize access="hasRole('ADMIN')">
-                                        <a href="<c:url value='/allCours/new' />" class="btn btn-raised btn-primary">
-                                            Create a new cours
-                                            <div class="ripple-container"></div>
-                                        </a>
-                                    </sec:authorize>
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
@@ -48,7 +42,9 @@
                                                 <th>Date de debut</th>
                                                 <th>Date de fin</th>
                                                 <th>Titre matiere</th>
-                                                <th>Nom Professeur</th>
+                                                <sec:authorize access="hasRole('EDUTIANT')">
+                                                    <th>Nom professeur</th>
+                                                </sec:authorize>                                                      
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,43 +54,29 @@
                                                     <td>${unCours.maSession}</td>
                                                     <td>${unCours.plageHoraire}</td>
                                                     <td>${unCours.dateDebut}</td>
-                                                    <td>${unCours.dateFin}</td>
-                                                    <td>${unCours.uneMat.titre}</td> 
-                                                    <td>${unCours.prof.user.nom}</td> 
-                                                    <sec:authorize access="hasRole('ADMIN')">
-                                                        <td>
-                                                            <a href="<c:url value="/allCours/edit-${unCours.id}-cours" />" class="btn btn-primary">
-                                                                MODIFIER
-                                                                <div class="ripple-container"></div>
-                                                            </a>
-                                                        </td>
-                                                    </sec:authorize>
-                                                    <sec:authorize access="hasRole('ADMIN')">
-                                                        <td>
-                                                            <a href="<c:url value="/allCours/delete-${unCours.id}-cours" />" class="btn btn-primary">
-                                                                SUPPRIMER
-                                                                <div class="ripple-container"></div>
-                                                            </a>
-                                                        </td>
+                                                    <td>${unCours.dateFin}</td>                                                                                                                  
+                                                    <td>${unCours.uneMat.titre}</td>
+                                                    <sec:authorize access="hasRole('EDUTIANT')">
+                                                        <td>${unCours.prof.user.nom}</td>
                                                     </sec:authorize>
                                                 </tr>  
                                             </c:forEach>
                                         </tbody>
                                     </table> 
                                 </c:otherwise> 
-                            </c:choose>
-                        </div>
+                            </c:choose>                       
                     </div>
                 </div>
             </div>
         </div>
-        jQuery 
-        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-        Twitter Bootstrap 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="<c:url value='/static/js/material.js'/>"></script>
-        <script src="<c:url value='/static/js/ripples.js'/>"></script>
-    </body>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="<c:url value='/static/js/material.js'/>"></script>
+    <script src="<c:url value='/static/js/ripples.js'/>"></script>
+</body>
 </html>
+
+
 
 

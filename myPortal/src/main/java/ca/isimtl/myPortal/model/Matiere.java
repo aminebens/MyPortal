@@ -37,12 +37,10 @@ public class Matiere implements Serializable{
     @NotEmpty
     @Column(name = "description", nullable = false)
     private String description;
-    
-    @NotEmpty
+       
     @Column(name = "duree", nullable = false)
     private int duree;
     
-    @NotEmpty
     @Column(name = "prix", nullable = false)
     private Double prix;
 

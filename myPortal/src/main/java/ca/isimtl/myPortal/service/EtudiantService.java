@@ -5,22 +5,15 @@
  */
 package ca.isimtl.myPortal.service;
 
-import ca.isimtl.myPortal.model.Cours;
-import java.util.List;
+import ca.isimtl.myPortal.model.Etudiant;
 
 /**
  *
  * @author Francois YOUALEU
  */
-public interface CoursService {
+public interface EtudiantService {
     
-    Cours findById(int id);
+    Etudiant findById(int id);
     
-     void saveCours(Cours unCours);
-    
-    void updateCours(Cours unCours);
-    
-    void deleteCours(Cours unCours);
-    
-    List<Cours> getAll();
+    Etudiant findByIdPersonne(int id);
 }

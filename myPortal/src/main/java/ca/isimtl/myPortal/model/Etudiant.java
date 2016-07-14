@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -35,23 +36,18 @@ public class Etudiant implements Serializable{
     @Column(name = "is_international", nullable = false)
     private Boolean isInternational;
     
-    @OneToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name="id_groupe")
-    private Group group;
+    private Group groupe;
     
-    @OneToOne
-    @JoinColumn(name="id_personne")
-    private User user;
+    @Column(name = "id_personne", nullable = false)
+    private int idPersonne;
+    
+//    @OneToOne
+//    @JoinColumn(name="id_personne")
+//    private User user;
 
     public Etudiant() {
-    }
-
-    public Etudiant(int id, String codePermanent, Boolean isInternational, Group group, User user) {
-        this.id = id;
-        this.codePermanent = codePermanent;
-        this.isInternational = isInternational;
-        this.group = group;
-        this.user = user;
     }
 
     public int getId() {
@@ -78,20 +74,28 @@ public class Etudiant implements Serializable{
         this.isInternational = isInternational;
     }
 
-    public Group getGroup() {
-        return group;
+    public Group getGroupe() {
+        return groupe;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroupe(Group groupe) {
+        this.groupe = groupe;
     }
 
-    public User getUser() {
-        return user;
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
+    public int getIdPersonne() {
+        return idPersonne;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdPersonne(int idPersonne) {
+        this.idPersonne = idPersonne;
     }
     
 }

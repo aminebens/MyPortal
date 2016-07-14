@@ -5,20 +5,18 @@
  */
 package ca.isimtl.myPortal.dao;
 
-import ca.isimtl.myPortal.model.Cours;
+import ca.isimtl.myPortal.model.Prof;
 import java.util.List;
 
 /**
  *
  * @author Francois YOUALEU
  */
-public interface CoursDao {
+public interface ProfDao {
     
-    Cours findById(int id);
-    
-    void saveCours(Cours unCours);
-    
-    void deleteCours(Cours unCours);
-    
-    List<Cours> getAll(); 
+     Prof findById(int id);
+     
+     List<Prof> getAll();
+     
+     Prof findByIdPersonne(int id);
 }
