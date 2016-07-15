@@ -6,7 +6,7 @@
 package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.Etudiant;
-import static jdk.nashorn.internal.objects.NativeJava.type;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -26,6 +26,15 @@ public class EtudiantDaoImpl extends AbstractDao<Integer, Etudiant> implements E
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("idPersonne", id));
         return (Etudiant) criteria.uniqueResult();
+    }
+
+    public List<Etudiant> getAll() {
+        Criteria criteria = createEntityCriteria();
+        return (List<Etudiant>) criteria.list();
+    }
+    
+    public void saveEtudiant(Etudiant etu) {
+        persist(etu);
     }
     
 }

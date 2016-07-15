@@ -6,6 +6,7 @@
 package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.Etudiant;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,8 @@ public interface EtudiantDao {
     Etudiant findById(int id);
     
     Etudiant findByIdPersonne(int id);
+    
+    List<Etudiant> getAll();
+    
+    void saveEtudiant(Etudiant etu);
 }
