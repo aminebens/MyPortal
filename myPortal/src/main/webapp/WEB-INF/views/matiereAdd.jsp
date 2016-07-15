@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -19,10 +20,9 @@
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     </head>
     <body>
-        <%@include file="header.jsp" %>
+        <t:wrapper>
         <div class="container-fluid">
             <div class="row">
-                <%@include file="sidemenu.jsp" %> 
                 <div class="col-md-10">
                     <form:form method="POST" modelAttribute="matiere" class="form-horizontal panel panel-default col-md-6">
                         <form:input type="hidden" path="id" id="id"/>
@@ -71,14 +71,14 @@
                                     <c:when test="${edit}">
                                         <input type="submit" value="MODIFIER" class="btn btn-primary"/>
                                         <a href="<c:url value='/allMatieres' />" class="btn btn-default">
-                                            List des matieres
+                                            Cancel
                                             <div class="ripple-container"></div>
                                         </a>
                                     </c:when>
                                     <c:otherwise>
                                         <input type="submit" value="AJOUTER" class="btn btn-primary" />
                                         <a href="<c:url value='/allMatieres' />" class="btn btn-default">
-                                            List des matieres
+                                            Cancel
                                             <div class="ripple-container"></div>
                                         </a>
                                     </c:otherwise>
@@ -97,6 +97,7 @@
         <script src="<c:url value='/static/js/material.js'/>"></script>
         <script src="<c:url value='/static/js/ripples.js'/>"></script>
         <script src="<c:url value='/static/js/app.js'/>"></script>
+        </t:wrapper>
     </body>
 </html>
 

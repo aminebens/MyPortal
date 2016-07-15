@@ -58,22 +58,14 @@
                                                     <td>${uneMatiere.description}</td>
                                                     <td>${uneMatiere.duree}</td>
                                                     <td>${uneMatiere.prix}</td> 
-                                                    <sec:authorize access="hasRole('ADMIN')">
+                                                    
                                                     <td>
-                                                        <a href="<c:url value="/allMatieres/edit-${uneMatiere.id}-matiere" />" class="btn btn-primary">
-                                                            MODIFIER
+                                                        <a href="<c:url value="/allFormations/edit-${uneMatiere.id}-formation" />" class="btn btn-primary">
+                                                            Retour
                                                             <div class="ripple-container"></div>
                                                         </a>
                                                     </td>
-                                                    </sec:authorize>
-                                                    <sec:authorize access="hasRole('ADMIN')">
-                                                    <td>
-                                                        <a href="<c:url value="/allMatieres/delete-${uneMatiere.id}-matiere" />" class="btn btn-primary">
-                                                            SUPPRIMER
-                                                            <div class="ripple-container"></div>
-                                                        </a>
-                                                    </td>
-                                                    </sec:authorize>
+                                                                                                    
                                                 </tr>  
                                             </c:forEach>
                                         </tbody>
@@ -95,5 +87,6 @@
         </t:wrapper>
     </body>
 </html>
+
 
 

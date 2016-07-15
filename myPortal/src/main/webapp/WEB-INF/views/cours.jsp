@@ -19,12 +19,10 @@
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     </head>
     <body>
-        <t:wrapper>
-        
+        <t:wrapper>       
         <div class="container-fluid">
-            <div class="row">
-                
-                <div class="col-md-8">
+            <div class="row">               
+                <div class="col-md-14">
                     <div class="well">
                         <div class="page-header">
                             <h1>Liste des Cours</h1>
@@ -90,9 +88,9 @@
                 </div>
             </div>
         </div>
-        jQuery 
+        <!--jQuery--> 
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-        Twitter Bootstrap 
+        <!--Twitter Bootstrap--> 
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="<c:url value='/static/js/material.js'/>"></script>
         <script src="<c:url value='/static/js/ripples.js'/>"></script>

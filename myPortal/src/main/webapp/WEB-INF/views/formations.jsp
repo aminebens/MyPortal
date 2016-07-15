@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cours</title>
+        <title>Liste des formations</title>
         <!-- Mobile support -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet" />
@@ -19,65 +19,67 @@
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     </head>
     <body>
-    <t:wrapper>
+        <t:wrapper>
         <div class="container-fluid">
             <div class="row">
+                
                 <div class="col-md-8">
                     <div class="well">
                         <div class="page-header">
-                            <h1>Liste des Cours</h1>
+                            <h1>Liste des Formations</h1>
                         </div>
                         <div class="panel-body">
                             <c:choose>
-                                <c:when test="${empty cours}">
+                                <c:when test="${empty matieres}">
                                     No data available
                                 </c:when>
                                 <c:otherwise>
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Libelle</th>
-                                                <th>Session</th>
-                                                <th>Plage horaire</th>
-                                                <th>Date de debut</th>
-                                                <th>Date de fin</th>
-                                                <th>Titre matiere</th>
-                                                <sec:authorize access="hasRole('EDUTIANT')">
-                                                    <th>Nom professeur</th>
-                                                </sec:authorize>                                                      
+                                                <th>Titre</th>
+                                                <th>Description</th>
+                                                <th>Duree</th>
+                                                <th>Montant</th>
+                                                <th>Date Creation</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${cours}" var="unCours">
+                                            <c:forEach items="${formations}" var="uneformation">
                                                 <tr>
-                                                    <td>${unCours.libelle}</td>
-                                                    <td>${unCours.maSession}</td>
-                                                    <td>${unCours.plageHoraire}</td>
-                                                    <td>${unCours.dateDebut}</td>
-                                                    <td>${unCours.dateFin}</td>                                                                                                                  
-                                                    <td>${unCours.uneMat.titre}</td>
-                                                    <sec:authorize access="hasRole('EDUTIANT')">
-                                                        <td>${unCours.prof.user.nom}</td>
-                                                    </sec:authorize>
+                                                    <td>${uneformation.titre}</td>
+                                                    <td>${uneformation.description}</td>
+                                                    <td>${uneformation.duree}</td>
+                                                    <td>${uneformation.prix}</td>
+                                                    <td>${uneformation.dateCreation}</td> 
+                                                   
+                                                    <td>
+                                                        <a href="<c:url value="/allFormations/edit-${uneformation.id}-formation" />" class="btn btn-primary">
+                                                            Voir Matieres
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                    </td>                                                   
                                                 </tr>  
                                             </c:forEach>
                                         </tbody>
                                     </table> 
                                 </c:otherwise> 
-                            </c:choose>                       
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="<c:url value='/static/js/material.js'/>"></script>
-    <script src="<c:url value='/static/js/ripples.js'/>"></script>
-    </t:wrapper>
-</body>
+        jQuery 
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        Twitter Bootstrap 
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="<c:url value='/static/js/material.js'/>"></script>
+        <script src="<c:url value='/static/js/ripples.js'/>"></script>
+        </t:wrapper>
+    </body>
 </html>
-
 
 
 
