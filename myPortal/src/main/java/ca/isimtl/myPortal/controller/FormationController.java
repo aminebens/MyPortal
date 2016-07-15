@@ -12,11 +12,9 @@ import ca.isimtl.myPortal.service.FormationService;
 import ca.isimtl.myPortal.service.UserService;
 import java.util.List;
 import java.util.Map;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,18 +50,8 @@ public class FormationController {
                 
     }
     
-    @RequestMapping(method = RequestMethod.POST)
-    public String allFormations(@Valid Matiere uneMat, BindingResult result, ModelMap model) {
-        
-        List<Formation> mesFormations = formationService.getAll();
-        
-        model.addAttribute("formations", mesFormations);
-        return "formations";
-                
-    }
-    
     //afficher matieres par formation
-    @RequestMapping(value = {"/edit{id}-formations"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/edit-{id}-formation"}, method = RequestMethod.GET)
     public String formMat(@PathVariable int id, ModelMap model){
         
         Formation uneFormation = formationService.findById(id);
@@ -71,6 +59,17 @@ public class FormationController {
         
         model.addAttribute("matieres", mesMatieres);
         return "formationsMat";
+    }
+    
+    //retour aux formations
+    @RequestMapping(value = {"/back"}, method = RequestMethod.GET)
+    public String retour(ModelMap model){
+        
+        
+        List<Formation> mesFormations = formationService.getAll();
+        
+        model.addAttribute("formations", mesFormations);
+        return "formations";
     }
     
     @ModelAttribute("loggedinuser")

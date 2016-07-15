@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("formationService")
 @Transactional
-public class FormationServiceImpl {
+public class FormationServiceImpl implements FormationService{
 
     @Autowired
     private FormationDao formationDao;

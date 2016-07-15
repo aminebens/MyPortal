@@ -23,7 +23,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Matiere implements Serializable{
    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(name = "id_matiere")
     private int id;
     
     @NotEmpty

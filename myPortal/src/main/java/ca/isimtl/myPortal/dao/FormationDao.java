@@ -7,7 +7,6 @@ package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.Formation;
 import java.util.List;
-import org.springframework.stereotype.Repository;
 
 /**
  *

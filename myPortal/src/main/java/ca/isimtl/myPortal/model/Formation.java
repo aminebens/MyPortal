@@ -41,6 +41,10 @@ public class Formation implements Serializable {
     @NotEmpty
     @Column(name = "titre", nullable = false)
     private String titre;
+    
+    @NotEmpty
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @NotEmpty
     @Column(name = "duree", nullable = false)
@@ -114,6 +118,14 @@ public class Formation implements Serializable {
 
     public void setMesMatieres(List<Matiere> mesMatieres) {
         this.mesMatieres = mesMatieres;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 }

@@ -6,7 +6,6 @@
 package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.Formation;
-import ca.isimtl.myPortal.model.Group;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
