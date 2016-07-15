@@ -6,13 +6,17 @@
 package ca.isimtl.myPortal.controller;
 
 import ca.isimtl.myPortal.model.Matiere;
+import ca.isimtl.myPortal.model.User;
 import ca.isimtl.myPortal.service.MatiereService;
+import ca.isimtl.myPortal.service.UserService;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +31,12 @@ public class MatieresController {
 
     @Autowired
     MatiereService matiereService;
+    
+    @Autowired
+    UserService userService;
+    
+    @Autowired
+    Map<String, String> sideMenu;
 
     //afficher toutes les matieres
     @RequestMapping(method = RequestMethod.GET)
@@ -76,9 +86,9 @@ public class MatieresController {
         }
         
         matiereService.updateMatiere(uneMat);
-        model.addAttribute("edit", true);
-        model.addAttribute("matiere", uneMat);
-        return "matiereAdd";
+        List<Matiere> mesMatieres = matiereService.getAll();
+        model.addAttribute("matieres", mesMatieres);
+        return "matiere";
     }
     
     //supprimer une matiere
@@ -90,6 +100,21 @@ public class MatieresController {
         List<Matiere> mesMatieres = matiereService.getAll();
         model.addAttribute("matieres", mesMatieres);
         return "matieres";
+    }
+    
+    @ModelAttribute("loggedinuser")
+    public String getLogedInUserFullName() {
+        String result = "";
+        User user = userService.getLogedInUser();
+        if (user != null) {
+            result = user.getPrenom() + " " + user.getNom();
+        }
+        return result;
+    }
+
+    @ModelAttribute("sidemenu")
+    public Map<String, String> getSideMenu() {
+        return sideMenu;
     }
 
 }

@@ -5,20 +5,15 @@
  */
 package ca.isimtl.myPortal.dao;
 
-import ca.isimtl.myPortal.model.Etudiant;
+import ca.isimtl.myPortal.model.Formation;
 import java.util.List;
 
 /**
  *
  * @author Francois YOUALEU
  */
-public interface EtudiantDao {
+public interface FormationDao {
     
-    Etudiant findById(int id);
-    
-    Etudiant findByIdPersonne(int id);
-    
-    List<Etudiant> getAll();
-    
-    void saveEtudiant(Etudiant etu);
+    Formation findById(int id);
+    List<Formation> getAll();
 }

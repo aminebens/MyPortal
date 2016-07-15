@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <t:wrapper>
-    <div class="row">
+    <div class="row">                
         <div class="col-md-8">
             <div class="well">
                 <div class="page-header">
@@ -67,5 +67,6 @@
         </div>
     </div>
 </t:wrapper>
+
 
 

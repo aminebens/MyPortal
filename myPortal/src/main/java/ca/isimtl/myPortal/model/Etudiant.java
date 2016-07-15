@@ -22,30 +22,30 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "etudiant")
-public class Etudiant implements Serializable{
-    
+public class Etudiant implements Serializable {
+
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private int id;
-    
+
     @Size(min = 3, max = 12)
     @Column(name = "code_permanent", nullable = false)
     private String codePermanent;
-    
+
     @Column(name = "is_international", nullable = false)
     private Boolean isInternational;
-    
+
     @ManyToOne(optional = false)
-    @JoinColumn(name="id_groupe")
+    @JoinColumn(name = "id_groupe")
     private Group groupe;
-    
-    @Column(name = "id_personne", nullable = false)
-    private int idPersonne;
-    
-//    @OneToOne
-//    @JoinColumn(name="id_personne")
-//    private User user;
+
+//    @Column(name = "id_personne", nullable = false)
+//    private int idPersonne;
+
+    @OneToOne
+    @JoinColumn(name = "id_personne")
+    private User user;
 
     public Etudiant() {
     }
@@ -82,20 +82,20 @@ public class Etudiant implements Serializable{
         this.groupe = groupe;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-
-    public int getIdPersonne() {
-        return idPersonne;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdPersonne(int idPersonne) {
-        this.idPersonne = idPersonne;
+    public void setUser(User user) {
+        this.user = user;
     }
     
+//    public int getIdPersonne() {
+//        return idPersonne;
+//    }
+//
+//    public void setIdPersonne(int idPersonne) {
+//        this.idPersonne = idPersonne;
+//    }
+
 }

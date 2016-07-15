@@ -21,4 +21,6 @@ public interface UserService {
     
     List<User> getAdmin();
     
+    List<User> getEtidiantAcconts();
+    
 }

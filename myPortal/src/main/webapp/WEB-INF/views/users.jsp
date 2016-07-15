@@ -6,9 +6,15 @@
 <t:wrapper>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>List of Users</h2>
+            <h2>Les Comptes Utilisateurs</h2>
         </div>
         <div class="panel-body">
+            <sec:authorize access="hasRole('ADMIN')">
+                <a href="<c:url value='/users/new' />" class="btn btn-raised btn-primary">
+                    Ajouter un nouveau compte
+                    <div class="ripple-container"></div>
+                </a>
+            </sec:authorize>
             <c:choose>
                 <c:when test="${empty users}">
                     No data available
@@ -17,11 +23,14 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Last Name</th>
-                                <th>First Name</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
                                 <th>Email</th>
-                                <th>Phone</th>
+                                <th>Téléphone</th>
                                 <th>N.A.S</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +42,7 @@
                                     <td>${user.telephone}</td>
                                     <td>${user.numeroAssuranceSociale}</td>
                                     <td>${user.userRole.type}</td>
-                                    <td>${user.active ? "Active" : "Deactivated"}</td>
+                                    <td style="color:${user.active ? "green" : "red"};">${user.active ? "Active" : "Deactivated"}</td>
                                     <td><a href="<c:url value='/users/edit-${user.id}-user' />">Edit</a></td>
                                 </tr>
                             </c:forEach>
@@ -41,12 +50,6 @@
                     </table>
                 </c:otherwise> 
             </c:choose>
-            <sec:authorize access="hasRole('ADMIN')">
-                <a href="<c:url value='/users/new' />" class="btn btn-raised btn-primary">
-                    Create a new user
-                    <div class="ripple-container"></div>
-                </a>
-            </sec:authorize>
         </div>
     </div>
 </t:wrapper>

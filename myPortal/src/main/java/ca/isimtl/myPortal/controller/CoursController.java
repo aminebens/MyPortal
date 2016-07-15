@@ -59,33 +59,29 @@ public class CoursController {
     //afficher tous les cours
     @RequestMapping(method = RequestMethod.GET)
     public String allCours(ModelMap model) {
-        List<Cours> mesCours = coursService.getAll();
-        model.addAttribute("cours", mesCours);
-        return "cours";
-    }
-    
-    //afficher les cours pour prof ou etudiant
-    @RequestMapping(value = {"/etuProf"}, method = RequestMethod.GET)
-    public String newMatiere(ModelMap model) {
+        
+        List<Cours> mesCours = null; 
+        String redirect = null;
         User unUser = userService.getLogedInUser();
-        String monRole = unUser.getUserRole().getType();
-        List<Cours> mesCours = null;
         
-        if (monRole.equals("Professeur")){
+        if (unUser.getUserRole().getType().toUpperCase().equals("ADMIN")){
+            mesCours = coursService.getAll();   
+            redirect = "cours";
+        }else if (unUser.getUserRole().getType().toUpperCase().equals("PROFESSEUR")){
             Prof unProf = profService.findByIdPersonne(unUser.getId());
-            mesCours = unProf.getMesCours();
-        }else if (monRole.equals("Etudiant")){
+            mesCours = unProf.getMesCours();    
+            redirect = "coursEtuProf";
+        }else if (unUser.getUserRole().getType().toUpperCase().equals("ETUDIANT")){
             Etudiant etu = etuService.findByIdPersonne(unUser.getId());
-            System.out.println("je recupere un etudiant)"+ etu);
-            mesCours = etu.getGroupe().getMesCours();
-        }    
+            mesCours = etu.getGroupe().getMesCours();              
+            redirect = "coursEtuProf";
+        }  
         
-        model.addAttribute("cours", mesCours);    
-        return "coursEtuProf";
-
+        model.addAttribute("cours", mesCours);
+        return redirect;
     }
     
-    //ajouter une cours
+    //ajouter un cours
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newCours(ModelMap model) {
         CoursEntity coursE = new CoursEntity();
@@ -101,16 +97,18 @@ public class CoursController {
     }
     
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String saveCours(@Valid CoursEntity coursE, BindingResult result, ModelMap model) {
+    public String saveCours(@Valid CoursEntity cours, BindingResult result, ModelMap model) {
         
         if (result.hasErrors()) {
-            return "cours";
+            return "coursAdd";
         }
+        
+       
         //obtenir la matiere a partir du nom du cours
         Matiere uneMat = null;
         List<Matiere> matieres = matiereService.getAll();
         for(Matiere uneMatiere : matieres){
-            if (uneMatiere.getTitre().equals(coursE.getTitreMatiere())){
+            if (uneMatiere.getTitre().equals(cours.getTitreMatiere())){
                 uneMat = uneMatiere;
                 break;
             }
@@ -119,53 +117,98 @@ public class CoursController {
         Prof unProf = null;
         List<Prof> profs = profService.getAll();
         for(Prof unP : profs){
-            if (unP.getUser().getNom().equals(coursE.getNomProf())){
+            if (unP.getUser().getNom().equals(cours.getNomProf())){
                 unProf = unP;
                 break;
             }
         }
-        
         //enregistrement des donnes de CoursE vers CoursModel
         Cours unCours = new Cours();
-        unCours.setLibelle(coursE.getLibelle());
-        unCours.setMaSession(coursE.getMaSession());
-        unCours.setPlageHoraire(coursE.getPlageHoraire());
-        unCours.setDateDebut(coursE.getDateDebut());
-        unCours.setDateFin(coursE.getDateFin());
+        unCours.setLibelle(cours.getLibelle());
+        unCours.setMaSession(cours.getMaSession());
+        unCours.setPlageHoraire(cours.getPlageHoraire());
+        unCours.setDateDebut(cours.getDateDebut());
+        unCours.setDateFin(cours.getDateFin());
         unCours.setProf(unProf);
         unCours.setUneMat(uneMat);
 
         coursService.saveCours(unCours);
-        
-        Cours unCours1 = new Cours();
-        model.addAttribute("cours", unCours1);
+
+        CoursEntity coursE = new CoursEntity(); 
+        model.addAttribute("matiere", matieres);
+        model.addAttribute("profs", profs);
+        model.addAttribute("cours", coursE);
         model.addAttribute("edit", false);
         return "coursAdd";
     }
     
-    //modifier une cours
+    //modifier un cours
     @RequestMapping(value = {"/edit-{id}-cours"}, method = RequestMethod.GET)
     public String editCours(@PathVariable int id, ModelMap model){
         
+        CoursEntity coursE = new CoursEntity();
         Cours unCours = coursService.findById(id);
-        model.addAttribute("cours", unCours);
+        
+        coursE.setId(id);
+        coursE.setLibelle(unCours.getLibelle());
+        coursE.setMaSession(unCours.getMaSession());
+        coursE.setPlageHoraire(unCours.getPlageHoraire());
+        coursE.setDateDebut(unCours.getDateDebut());
+        coursE.setDateFin(unCours.getDateFin());
+        coursE.setNomProf(unCours.getProf().getUser().getNom());
+        coursE.setTitreMatiere(unCours.getUneMat().getTitre());
+           
+       
+        model.addAttribute("cours", coursE);
         model.addAttribute("edit", true);
         return "coursAdd";
     }
     
     @RequestMapping(value ={"/edit-{id}-cours"}, method = RequestMethod.POST)
-    public String updateCours(@Valid Cours unCours, BindingResult result, ModelMap model){
-        if(result.hasErrors()){
-            return "matieres";
+    public String updateCours(@Valid CoursEntity cours, BindingResult result, ModelMap model){
+        
+         if (result.hasErrors()) {
+            return "coursAdd";
         }
         
+       
+        //obtenir la matiere a partir du nom du cours
+        Matiere uneMat = null;
+        List<Matiere> matieres = matiereService.getAll();
+        for(Matiere uneMatiere : matieres){
+            if (uneMatiere.getTitre().equals(cours.getTitreMatiere())){
+                uneMat = uneMatiere;
+                break;
+            }
+        }
+        //obtenir le prof a partir du nom du cours
+        Prof unProf = null;
+        List<Prof> profs = profService.getAll();
+        for(Prof unP : profs){
+            if (unP.getUser().getNom().equals(cours.getNomProf())){
+                unProf = unP;
+                break;
+            }
+        }
+        //enregistrement des donnes de CoursE vers CoursModel
+        Cours unCours = new Cours();
+        unCours.setId(cours.getId());
+        unCours.setLibelle(cours.getLibelle());
+        unCours.setMaSession(cours.getMaSession());
+        unCours.setPlageHoraire(cours.getPlageHoraire());
+        unCours.setDateDebut(cours.getDateDebut());
+        unCours.setDateFin(cours.getDateFin());
+        unCours.setProf(unProf);
+        unCours.setUneMat(uneMat);
+
         coursService.updateCours(unCours);
-        model.addAttribute("edit", true);
-        model.addAttribute("cours", unCours);
-        return "coursAdd";
+        
+        List<Cours> mesCours = coursService.getAll();
+        model.addAttribute("cours", mesCours);
+        return "cours";
     }
     
-    //supprimer une cours
+    //supprimer un cours
     @RequestMapping(value ={"/delete-{id}-cours"}, method = RequestMethod.GET)
     public String deleteCours(@PathVariable int id, ModelMap model){
         Cours unCours = coursService.findById(id);

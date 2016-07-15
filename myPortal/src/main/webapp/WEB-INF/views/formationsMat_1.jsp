@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <t:wrapper>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="well">
                 <div class="page-header">
                     <h1>Liste des Matieres</h1>
@@ -16,12 +16,6 @@
                             No data available
                         </c:when>
                         <c:otherwise>
-                            <sec:authorize access="hasRole('ADMIN')">
-                                <a href="<c:url value='/allMatieres/new' />" class="btn btn-raised btn-primary">
-                                    Create a new matiere
-                                    <div class="ripple-container"></div>
-                                </a>
-                            </sec:authorize>
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -40,24 +34,12 @@
                                             <td>${uneMatiere.description}</td>
                                             <td>${uneMatiere.duree}</td>
                                             <td>${uneMatiere.prix}</td> 
-                                            <sec:authorize access="hasRole('ADMIN')">
-                                                <td>
-                                                    <a href="<c:url value="/allMatieres/edit-${uneMatiere.id}-matiere" />" class="btn btn-primary">
-                                                        MODIFIER
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </td>
-                                            </sec:authorize>
-                                            <sec:authorize access="hasRole('ADMIN')">
-                                                <td>
-                                                    <a href="<c:url value="/allMatieres/delete-${uneMatiere.id}-matiere" />" class="btn btn-primary">
-                                                        SUPPRIMER
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </td>
-                                            </sec:authorize>
                                         </tr>  
                                     </c:forEach>
+                                <a href="<c:url value="/allFormations/back" />" class="btn btn-primary">
+                                    Retour
+                                    <div class="ripple-container"></div>
+                                </a>
                                 </tbody>
                             </table> 
                         </c:otherwise> 
@@ -67,5 +49,6 @@
         </div>
     </div>
 </t:wrapper>
+
 
 

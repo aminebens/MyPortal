@@ -1,5 +1,6 @@
 package ca.isimtl.myPortal.configuration;
 
+import ca.isimtl.myPortal.converter.GroupeToEtudiantConverter;
 import ca.isimtl.myPortal.converter.RoleToUserConverter;
 import ca.isimtl.myPortal.converter.UserToSujetConverter;
 import java.util.HashMap;
@@ -29,6 +30,9 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     RoleToUserConverter roleToUserConverter;
     
+    @Autowired
+    GroupeToEtudiantConverter groupeToEtudiantConverter;
+    
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -51,6 +55,7 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         //registry.addConverter(userToSujetConverter);
+        //registry.addConverter(groupeToEtudiantConverter);
         registry.addConverter(roleToUserConverter);
     }
     
@@ -69,11 +74,14 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
     public Map<String, String> sideMenu() {
         final Map<String, String> list = new HashMap<String, String>();
         list.put("Utilisateurs","/users");
-        list.put("Matieres","/matieres");
+        list.put("Matieres","/allMatieres");
+        list.put("Cours","/allCours");
+        list.put("Emploi de Temps", "/horairesCours");
         list.put("Sujets","/sujets");
         list.put("Groupes","/group");
         list.put("Alerts","/alerts");
         list.put("Contacts", "/contacts");
+        list.put("Formations", "/allFormations");
         return list;
     }
 

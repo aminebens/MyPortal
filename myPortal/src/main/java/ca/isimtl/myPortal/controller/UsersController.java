@@ -59,8 +59,10 @@ public class UsersController {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
+
         model.addAttribute("sidemenu", sideMenu);
         model.addAttribute("loggedinuser", getLogedInUserFullName());
+
         return "registration";
     }
 
@@ -69,13 +71,12 @@ public class UsersController {
      * saving user in database. It also validates the user input
      */
     @RequestMapping(value = {"/users/new"}, method = RequestMethod.POST)
-    public String saveUser(@Valid User user, BindingResult result,
-            ModelMap model) {
+    public String saveUser(@Valid User user, BindingResult result, ModelMap model) {
 
         if (result.hasErrors()) {
             return "registration";
         }
-
+        
         service.saveUser(user);
         model.addAttribute("loggedinuser", getLogedInUserFullName());
         model.addAttribute("success", "User " + user.getPrenom() + " " + user.getNom() + " added successfully");
@@ -111,6 +112,7 @@ public class UsersController {
 
         model.addAttribute("success", "User " + user.getPrenom() + " " + user.getNom() + " updated successfully");
         model.addAttribute("loggedinuser", getLogedInUserFullName());
+        model.addAttribute("sidemenu", sideMenu);
         return "success";
     }
 
@@ -137,6 +139,12 @@ public class UsersController {
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/denied", method = RequestMethod.GET)
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("loggedinuser", getLogedInUserFullName());
+        return "denied";
     }
 
     public String getLogedInUserFullName() {
