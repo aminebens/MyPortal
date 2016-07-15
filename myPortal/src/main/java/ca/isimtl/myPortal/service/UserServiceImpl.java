@@ -68,5 +68,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getAdmin() {
         return userDao.getAdmin();
     }
+    
+    public List<User> getEtidiantAcconts() {
+        return userDao.getEtidiantAcconts();
+    }
 
 }

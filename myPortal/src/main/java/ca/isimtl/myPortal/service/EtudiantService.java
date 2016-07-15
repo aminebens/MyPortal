@@ -6,6 +6,7 @@
 package ca.isimtl.myPortal.service;
 
 import ca.isimtl.myPortal.model.Etudiant;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,8 @@ public interface EtudiantService {
     Etudiant findById(int id);
     
     Etudiant findByIdPersonne(int id);
+    
+    List<Etudiant> getAll();
+    
+    void saveEtudiant(Etudiant etu);
 }
