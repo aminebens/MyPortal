@@ -9,6 +9,12 @@
             <h2>List of Users</h2>
         </div>
         <div class="panel-body">
+            <sec:authorize access="hasRole('ADMIN')">
+                <a href="<c:url value='/users/new' />" class="btn btn-raised btn-primary">
+                    Create a new user
+                    <div class="ripple-container"></div>
+                </a>
+            </sec:authorize>
             <c:choose>
                 <c:when test="${empty users}">
                     No data available
@@ -41,12 +47,6 @@
                     </table>
                 </c:otherwise> 
             </c:choose>
-            <sec:authorize access="hasRole('ADMIN')">
-                <a href="<c:url value='/users/new' />" class="btn btn-raised btn-primary">
-                    Create a new user
-                    <div class="ripple-container"></div>
-                </a>
-            </sec:authorize>
         </div>
     </div>
 </t:wrapper>

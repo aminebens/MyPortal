@@ -9,7 +9,9 @@ import ca.isimtl.myPortal.model.User;
 import ca.isimtl.myPortal.model.UserRole;
 import ca.isimtl.myPortal.service.UserService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,19 +34,15 @@ public class AppUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userService.findByLogin(login);
-        
-        if (user == null)
+
+        if (user == null) {
             throw new UsernameNotFoundException("Username not found");
-
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPwd(),
-                user.getActive(), true, true, true, getGrantedAuthorities(user));
-    }
-
-    private List<GrantedAuthority> getGrantedAuthorities(User user) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        UserRole userRole = user.getUserRole();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + userRole.getType().toUpperCase()));
-        return authorities;
+        }
+        
+        Set<GrantedAuthority> authority = new HashSet<GrantedAuthority>();
+        authority.add(new AppGrantedAuthority(user.getUserRole().getType().toUpperCase()));
+   
+        return new AppUserDetails(user.getLogin(), user.getPwd(),true, authority);
     }
 
 }

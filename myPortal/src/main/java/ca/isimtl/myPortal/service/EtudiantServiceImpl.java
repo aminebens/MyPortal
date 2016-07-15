@@ -7,6 +7,7 @@ package ca.isimtl.myPortal.service;
 
 import ca.isimtl.myPortal.dao.EtudiantDao;
 import ca.isimtl.myPortal.model.Etudiant;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("etudiantService")
 @Transactional
-public class EtudiantServiceImpl implements EtudiantService{
+public class EtudiantServiceImpl implements EtudiantService {
 
     @Autowired
     EtudiantDao etudiant;
@@ -28,6 +29,14 @@ public class EtudiantServiceImpl implements EtudiantService{
 
     public Etudiant findByIdPersonne(int id) {
         return etudiant.findByIdPersonne(id);
+    }
+
+    public List<Etudiant> getAll() {
+        return etudiant.getAll();
+    }
+    
+    public void saveEtudiant(Etudiant etu) {
+        etudiant.saveEtudiant(etu);
     }
   
 }
