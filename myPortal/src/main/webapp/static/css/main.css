@@ -40,3 +40,10 @@
     display: table;
 }
 
+.denied {
+    font-size: 30px;
+}
+
+.deconnect {
+    text-decoration: underline;
+}
