@@ -7,7 +7,6 @@ package ca.isimtl.myPortal.dao;
 
 import ca.isimtl.myPortal.model.Facture;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
