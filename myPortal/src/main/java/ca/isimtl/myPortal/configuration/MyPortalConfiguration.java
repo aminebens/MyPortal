@@ -82,6 +82,7 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
         list.put("Alerts","/alerts");
         list.put("Contacts", "/contacts");
         list.put("Formations", "/allFormations");
+        list.put("Facture", "/facture");
         return list;
     }
 
