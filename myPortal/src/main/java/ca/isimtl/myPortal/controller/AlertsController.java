@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@RequestMapping("/")
 @SessionAttributes("roles")
 public class AlertsController {
 
@@ -41,7 +42,7 @@ public class AlertsController {
     @Autowired
     Map<String, String> sideMenu;
 
-    @RequestMapping(value = {"/alerts"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/" + "/alerts"}, method = RequestMethod.GET)
     public String viewAlerts(ModelMap model) {
         Boolean admin=false;
         List<Alert> alerts;
