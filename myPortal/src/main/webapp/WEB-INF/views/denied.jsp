@@ -25,35 +25,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h1>Login</h1>
+                            <div class="panel-body">
+                                <div class="alert alert-dismissible alert-danger denied">
+                                    <strong>Oups!</strong>
+                                    <span><strong>${loggedinuser}</strong>, Vous n'êtes pas autorisé à accéder à cette page.</span> <span class="floatRight"><a class="deconnect" href="<c:url value="/logout" />">Deconnexion</a></span>
                                 </div>
-                                <c:url var="loginUrl" value="/login" />
-                                <form method="POST" action="${loginUrl}" class="form-horizontal panel-body">
-                                    <c:if test="${param.errorLogin != null}">
-                                        <div class="alert alert-danger">
-                                            Impossible de vous connecter , s'il vous plaît vérifier votre login / mot de passe
-                                        </div>
-                                    </c:if> 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <input type="text" id="login" name="username" placeholder="Identifiant" class="form-control" required/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <input type="password" id="password" name="password" placeholder="Mot de Passe" class="form-control" required/>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
-                                    <div class="col-sm-offset-3 col-sm-6">
-                                        <button class="btn btn-lg btn-block btn-raised btn-primary btn-block">
-                                            Se Connecter
-                                            <div class="ripple-wrapper"></div>
-                                        </button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -69,3 +45,4 @@
         <script src="<c:url value='/static/js/app.js'/>"></script>
     </body>
 </html>
+

@@ -18,7 +18,7 @@
                         ${loggedinuser}
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">My Account</li>
+                        <li><a href="<c:url value="/profile" />">My Account</li>
                         <li><a href="<c:url value="/logout" />">
                                 <i class="material-icons">power_settings_new</i> Logout
                                 <div class="ripple-wrapper"></div>
