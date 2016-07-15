@@ -6,19 +6,19 @@
 <t:wrapper>
     <form:form method="POST" modelAttribute="user" class="form-horizontal panel panel-default col-md-6">
         <fieldset>
-            <legend>Registration Form</legend>
+            <legend>Compte Utilisateur MyPortal</legend>
             <form:input type="hidden" path="id" id="id"/>
             <div class="form-group">
-                <label class="col-md-3 control-label" for="name">Last Name: </label>
+                <label class="col-md-3 control-label" for="name">Nom: </label>
                 <div class="col-md-9">
-                    <form:input path="nom" id="name" placeholder="Last Name" class="form-control"/>
+                    <form:input path="nom" id="name" placeholder="Nom" class="form-control"/>
                     <form:errors path="nom"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label" for="firstname">First Name: </label>
+                <label class="col-md-3 control-label" for="firstname">Prénom: </label>
                 <div class="col-md-9">
-                    <form:input path="prenom" id="firstname" placeholder="Last Name" class="form-control"/>
+                    <form:input path="prenom" id="firstname" placeholder="Prénom" class="form-control"/>
                     <form:errors path="prenom"/>
                 </div>
             </div>
@@ -37,14 +37,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label" for="dob">Date of Birth: </label>
+                <label class="col-md-3 control-label" for="dob">Date de Naissance: </label>
                 <div class="col-md-9">
                     <form:input path="dateNaissance" id="dob" placeholder="DD/MM/YYYY" class="form-control"/>
                     <form:errors path="dateNaissance"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label" for="telephone">Telephone: </label>
+                <label class="col-md-3 control-label" for="telephone">Téléphone: </label>
                 <div class="col-md-9">
                     <form:input path="telephone" id="telephone" placeholder="Ex. 4381235555" class="form-control"/>
                     <form:errors path="telephone"/>
@@ -58,9 +58,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label" for="address">Address: </label>
+                <label class="col-md-3 control-label" for="address">Adresse: </label>
                 <div class="col-md-9">
-                    <form:input path="adresse" id="address" placeholder="Your Address" class="form-control"/>
+                    <form:input path="adresse" id="address" placeholder="Votre Adresse" class="form-control"/>
                     <form:errors path="adresse"/>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label" for="userRole">Role: </label>
+                <label class="col-md-3 control-label" for="userRole">Type: </label>
                 <div class="col-md-9">
                     <form:select path="userRole" items="${roles}" multiple="false" itemValue="id" itemLabel="type" class="form-control"/>
                     <form:errors path="userRole" cssClass="error"/>
@@ -91,13 +91,13 @@
             <div class="col-md-9 col-md-offset-6">
                 <c:choose>
                     <c:when test="${edit}">
-                        <input type="submit" value="Update" class="btn btn-primary"/>
-                        <a href="<c:url value='/users' />" class="btn btn-default">Cancel</a>
+                        <input type="submit" value="Modifier" class="btn btn-primary"/>
+                        <a href="<c:url value='/users' />" class="btn btn-default">Annuler</a>
                         <div class="ripple-container"></div>
                     </c:when>
                     <c:otherwise>
-                        <input type="submit" value="Register" class="btn btn-primary"/>
-                        <a href="<c:url value='/users' />" class="btn btn-default">Cancel</a>
+                        <input type="submit" value="Ajouter" class="btn btn-primary"/>
+                        <a href="<c:url value='/users' />" class="btn btn-default">Annuler</a>
                         <div class="ripple-container"></div>
                     </c:otherwise>
                 </c:choose>
