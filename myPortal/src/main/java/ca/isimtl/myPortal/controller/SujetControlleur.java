@@ -5,95 +5,150 @@
  */
 package ca.isimtl.myPortal.controller;
 
+import ca.isimtl.myPortal.model.Message;
 import ca.isimtl.myPortal.model.Sujet;
+import ca.isimtl.myPortal.model.User;
+import ca.isimtl.myPortal.service.MessageService;
 import ca.isimtl.myPortal.service.SujetService;
 import ca.isimtl.myPortal.service.UserService;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("roles")
 public class SujetControlleur {
 
     @Autowired
     SujetService sujetService;
-    
+
     @Autowired
     UserService userService;
 
+    @Autowired
+    MessageService messageService;
+
+    @Autowired
+    Map<String, String> sideMenu;
+
     @RequestMapping(value = {"/sujet/add"}, method = RequestMethod.GET)
     public String ajouterSujet(ModelMap model) {
+        if (userService.getLogedInUser().getUserRole().getType().toUpperCase().equals("ADMIN")) {
+            return "redirect:/sujets";
+        }
         Sujet sujet = new Sujet();
+        sujet.setUser(userService.getLogedInUser());
+        sujet.setDate_creation(new Date());
+        sujet.setIsResolu(false);
         model.addAttribute("sujet", sujet);
-        model.addAttribute("idUser", 3);
-        model.addAttribute("date", (new Date()).toString());
         return "sujetAdd";
     }
 
     @RequestMapping(value = {"/sujet/add"}, method = RequestMethod.POST)
     public String saveSujet(@Valid Sujet sujet, BindingResult result, ModelMap model) {
+        if (userService.getLogedInUser().getUserRole().getId() == 6) {
+            return "redirect:/sujets";
+        }
+
         if (result.hasErrors()) {
-            
             return "sujetAdd";
         }
+        sujet.setUser(userService.getLogedInUser());
         sujetService.saveSujet(sujet);
-        sujet = new Sujet();
-        model.addAttribute("sujet", sujet);
-        model.addAttribute("idUser", 3);
-        model.addAttribute("date", (new Date()).toString());
-        return "sujetAdd";
+        return "redirect:/sujets";
     }
-    
+
     @RequestMapping(value = {"/sujet/{id}"}, method = RequestMethod.GET)
     public String voirSujet(@PathVariable int id, ModelMap model) {
         Sujet sujet = sujetService.getSujetById(id);
+        User userLog = userService.getLogedInUser();
+        if (sujet.getUser().getId() != userLog.getId() && userLog.getUserRole().getId() != 6) {
+            return "redirect:/sujets";
+        }
+        Message message = new Message();
+        message.setDate(new Date());
         model.addAttribute("sujet", sujet);
+        model.addAttribute("message", message);
         return "sujet";
     }
-    
+
+    @RequestMapping(value = {"/sujet/{id}"}, method = RequestMethod.POST)
+    public String ajouterMessage(@Valid Message message, BindingResult result, @PathVariable int id, ModelMap model) {
+        Sujet sujet = sujetService.getSujetById(id);
+        User userLog = userService.getLogedInUser();
+        if (sujet.getUser().getId() != userLog.getId() && userLog.getUserRole().getId() != 6) {
+            return "redirect:/sujets";
+        }
+        if (result.hasErrors()) {
+            model.addAttribute("sujet", sujet);
+            return "sujet";
+        }
+        message.setSujet(sujetService.getSujetById(id));
+        if (userLog.getUserRole().getId() == 6) {
+            message.setUserFrom(userLog);
+            message.setUserTo(sujet.getUser());
+        } else {
+            message.setUserFrom(userLog);
+            message.setUserTo(userService.getAdmin().get(0));
+        }
+        message.setId(0);
+        messageService.saveMessage(message);
+        return "redirect:/sujets";
+    }
+
     @RequestMapping(value = {"/sujet/resolu/{id}"}, method = RequestMethod.GET)
     public String resoluSujet(@PathVariable int id, ModelMap model) {
         Sujet sujet = sujetService.getSujetById(id);
-        if(sujet==null){
-            return "sujetAdd";
+        User userLog = userService.getLogedInUser();
+        if (sujet.getUser().getId() != userLog.getId() && userLog.getUserRole().getId() != 6) {
+            return "redirect:/sujets";
+        }
+        if (sujet == null) {
+            return "redirect:/sujets";
         }
         sujetService.sujetResolut(sujet);
-        int role=1;
-        boolean user=true;
+        return "redirect:/sujets";
+    }
+
+    @RequestMapping(value = {"/sujets"}, method = RequestMethod.GET)
+    public String allSujet(ModelMap model) {
+        User userLog = userService.getLogedInUser();
+        boolean user = true;
         List<Sujet> sujets;
-        if(role==1){
-            user=false;
-            sujets=sujetService.getAllSujetNonResolut();
-        }else{
-            sujets=sujetService.getSujetNonResolutByIdUser(userService.findById(3));
+        if (userLog.getUserRole().getId() == 6) {
+            user = false;
+            sujets = sujetService.getAllSujetNonResolut();
+        } else {
+            sujets = sujetService.getSujetNonResolutByIdUser(userLog);
         }
-        
+
         model.addAttribute("sujets", sujets);
         model.addAttribute("user", user);
         return "sujets";
     }
-    
-    @RequestMapping(value = {"/sujets"}, method = RequestMethod.GET)
-    public String allSujet( ModelMap model) {
-        int role=2;
-        boolean user=true;
-        List<Sujet> sujets;
-        if(role==1){
-            user=false;
-            sujets=sujetService.getAllSujetNonResolut();
-        }else{
-            sujets=sujetService.getSujetNonResolutByIdUser(userService.findById(3));
+
+    @ModelAttribute("loggedinuser")
+    public String getLogedInUserFullName() {
+        String result = "";
+        User user = userService.getLogedInUser();
+        if (user != null) {
+            result = user.getPrenom() + " " + user.getNom();
         }
-        
-        model.addAttribute("sujets", sujets);
-        model.addAttribute("user", user);
-        return "sujets";
+        return result;
+    }
+
+    @ModelAttribute("sidemenu")
+    public Map<String, String> getSideMenu() {
+        return sideMenu;
     }
 }

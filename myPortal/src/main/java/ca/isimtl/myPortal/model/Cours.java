@@ -9,8 +9,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -28,16 +29,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Cours implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(name = "id_cours")
     private int id;
     
-    @NotEmpty
-    @Column(name = "id_matiere", nullable = false)
-    private int idMatiere;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_matiere", nullable = false)
+    private Matiere uneMat;
     
     @NotEmpty
     @Column(name = "plage_horaire", nullable = false)
     private String plageHoraire;
+    
+    @NotEmpty
+    @Column(name = "libelle", nullable = false)
+    private String libelle;
     
     @NotEmpty
     @Column(name = "session", nullable = false)
@@ -57,37 +63,22 @@ public class Cours implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate  dateFin;
     
-    @NotEmpty
-    @Column(name = "id_prof", nullable = false)
-    private int idProf;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_prof")
+    private Prof prof;
 
-    public Cours(int id, int idMatiere, String plageHoraire, String maSession, LocalDate dateDebut, LocalDate dateFin, int idProf) {
+    public Cours(int id, Matiere uneMat, String plageHoraire, String libelle, String maSession, LocalDate dateDebut, LocalDate dateFin, Prof prof) {
         this.id = id;
-        this.idMatiere = idMatiere;
+        this.uneMat = uneMat;
         this.plageHoraire = plageHoraire;
+        this.libelle = libelle;
         this.maSession = maSession;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.idProf = idProf;
+        this.prof = prof;
     }
 
     public Cours() {
-    }
-
-    public int getIdMatiere() {
-        return idMatiere;
-    }
-
-    public void setIdMatiere(int idMatiere) {
-        this.idMatiere = idMatiere;
-    }
-
-    public int getIdProf() {
-        return idProf;
-    }
-
-    public void setIdProf(int idProf) {
-        this.idProf = idProf;
     }
 
     public int getId() {
@@ -98,12 +89,28 @@ public class Cours implements Serializable {
         this.id = id;
     }
 
+    public Matiere getUneMat() {
+        return uneMat;
+    }
+
+    public void setUneMat(Matiere uneMat) {
+        this.uneMat = uneMat;
+    }
+
     public String getPlageHoraire() {
         return plageHoraire;
     }
 
     public void setPlageHoraire(String plageHoraire) {
         this.plageHoraire = plageHoraire;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
     public String getMaSession() {
@@ -129,5 +136,15 @@ public class Cours implements Serializable {
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
+
+    public Prof getProf() {
+        return prof;
+    }
+
+    public void setProf(Prof prof) {
+        this.prof = prof;
+    }
+
+   
     
 }

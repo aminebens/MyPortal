@@ -32,6 +32,7 @@ public class SujetDaoImpl extends AbstractDao<Integer, Sujet> implements SujetDa
     public List<Sujet> getSujetByIdUser(User personne) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("user", personne));
+        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         crit.addOrder(Order.asc("date_creation"));
         return (List<Sujet>) crit.list();
     }

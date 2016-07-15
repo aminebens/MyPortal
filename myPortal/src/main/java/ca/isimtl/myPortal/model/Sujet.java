@@ -1,28 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.isimtl.myPortal.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="sujet")
 public class Sujet implements Serializable{
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -35,9 +35,13 @@ public class Sujet implements Serializable{
     @Column(name = "description", nullable = false)
     private String description;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idPersonne")
     private User user;
+    
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "sujet")
+    private List<Message> messages;
     
     @NotEmpty
     @Column(name = "type", nullable = false)
@@ -122,7 +126,13 @@ public class Sujet implements Serializable{
     public void setDate_creation(Date date_creation) {
         this.date_creation = date_creation;
     }
-    
-    
 
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+    
 }

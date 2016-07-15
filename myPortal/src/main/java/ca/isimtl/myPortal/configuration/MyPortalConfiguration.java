@@ -69,10 +69,14 @@ public class MyPortalConfiguration extends WebMvcConfigurerAdapter {
     public Map<String, String> sideMenu() {
         final Map<String, String> list = new HashMap<String, String>();
         list.put("Utilisateurs","/users");
-        list.put("Matieres","/matieres");
+        list.put("Matieres","/allMatieres");
+        list.put("Cours","/allCours");
+        list.put("Emploi de Temps", "/horairesCours");
         list.put("Sujets","/sujets");
         list.put("Groupes","/group");
         list.put("Alerts","/alerts");
+        list.put("Contacts", "/contacts");
+        list.put("Formations", "/allFormations");
         return list;
     }
 
