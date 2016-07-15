@@ -10,6 +10,12 @@
     <body>
     <t:wrapper>
 
+        Type: ${alert.type}<br/>
+        Date: ${alert.date}<br/>
+        De: ${userFrom.nom} ${userFrom.prenom} <br/>
+        Contenu: ${alert.contenu}<br/>
+        <a href="<c:url value='/alerts' />" class="btn btn-default">Retour</a>
+        
     </t:wrapper>
 </body>
 </html>

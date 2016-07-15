@@ -15,6 +15,7 @@
                 <fieldset>
                     <legend>Ajouter une Alert</legend>
                     <form:input type="hidden" path="idUserFrom" />
+                    <div>${msg}</div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="idUserTo">Utilisateur: </label>
                         <div class="col-md-9">

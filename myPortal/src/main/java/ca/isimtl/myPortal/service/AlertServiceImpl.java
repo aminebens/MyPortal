@@ -52,5 +52,9 @@ public class AlertServiceImpl implements AlertService{
     public List<Alert> findByIdUserFrom(Integer idUserFrom) {
         return alertDao.findByIdUserFrom(idUserFrom);
     }
+
+    public void deleteAlert(Alert alert) {
+        alertDao.deleteAlert(alert);
+    }
     
 }

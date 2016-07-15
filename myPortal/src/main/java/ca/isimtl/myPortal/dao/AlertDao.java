@@ -18,5 +18,6 @@ public interface AlertDao {
     List<Alert> findByIdGroup(Integer idGroup);
     Alert findByid(int id);
     void saveAlert(Alert alert);
+    void deleteAlert(Alert alert);
     List<Alert> getAllAlert();
 }

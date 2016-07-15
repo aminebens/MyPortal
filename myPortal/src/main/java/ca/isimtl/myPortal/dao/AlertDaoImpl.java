@@ -48,6 +48,9 @@ public class AlertDaoImpl extends AbstractDao<Integer, Alert> implements AlertDa
         criteria.add(Restrictions.eq("idUserFrom", idUserFrom));
         return (List<Alert>) criteria.list();
     }
-    
+
+    public void deleteAlert(Alert alert) {
+        delete(alert);
+    }
     
 }

@@ -19,5 +19,6 @@ public interface AlertService {
     Alert findByid(int id);
     void saveAlert(Alert alert);
     void updateAlert(Alert alert);
+    void deleteAlert(Alert alert);
     List<Alert> getAllAlert();
 }

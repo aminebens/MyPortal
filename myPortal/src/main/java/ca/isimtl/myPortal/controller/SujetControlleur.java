@@ -103,7 +103,7 @@ public class SujetControlleur {
         }
         message.setId(0);
         messageService.saveMessage(message);
-        return "redirect:/sujets";
+        return "redirect:/sujet/"+sujet.getId();
     }
 
     @RequestMapping(value = {"/sujet/resolu/{id}"}, method = RequestMethod.GET)
